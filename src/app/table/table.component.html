@@ -1,0 +1,75 @@
+<!--Table's Header Part-->
+<div class="d-flex w-100 justify-content-between" style="padding:10px">
+    <div class="d-flex align-items-center justify-content-center">
+        <select class="custom-select" value={{lengths[0]}} name="size" (change)="setText($event)">
+            <option *ngFor="let l of lengths" value={{l}}>{{l}}</option>
+        </select>
+    </div>
+    <div class="input-group w-25">
+        <input class="form-control" type="text" name="searchTxt" placeholder="Search Text" (keyup)="setText($event)"/>
+        <div class="input-group-append">
+            <button class="btn btn-primary" (click)="search($event)">Search</button>
+        </div>
+    </div>
+</div>
+<!--Table-->
+<table class="table table-bordered" *ngIf="data">
+    <thead class="thead-white">
+        <tr class="text-center">
+             <th>S.No</th>
+             <th *ngFor="let h of headers">
+                 <div class="d-flex  justify-content-center align-items-center">
+                    <div>{{h.text}}</div>
+                    <div (click)="onOrderChanges(h.key,h.key===props.sortBy)">
+                        &nbsp;
+                        <fa-icon [icon]="(h.key===props.sortBy && props.order==-1)?angledown:angleup" [style.color]="h.key===props.sortBy?'red':'grey'"></fa-icon>
+                    </div>
+                 </div>
+             </th>
+             <th>Action</th>
+        </tr>
+    </thead>
+    <tbody class="text-center" *ngIf="data.length!=0">
+        <tr *ngFor="let d of data; let i=index">
+            <td>{{i+startingIndex+1}}</td>
+            <td *ngFor="let h of headers" class="m-auto">
+                <span  class="text-center" *ngIf="h.type==='text'"  value={{d[h.key]}}>{{d[h.key]}}</span> 
+                <div class="custom-control custom-switch" *ngIf="h.type==='switch'">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch{{d._id}}"  [checked]="d[h.key]?true:false">
+                    <label class="custom-control-label" for="customSwitch{{d._id}}"></label>
+                </div>
+            </td>
+            <td class="d-flex justify-content-center">
+                <div class="p-1 w-5 d-flex justify-content-around" style="width:120px">
+                    <button class="btn btn-outline-primary" (click)="modifyRow(d,i)"><fa-icon [icon]="faedit"></fa-icon></button>
+                    <button class="btn btn-outline-danger" (click)="deleteRow(d,i)"><fa-icon [icon]="faeraser"></fa-icon></button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="text-center h-50 w-100" *ngIf="!data || data.length==0">
+    <h3>~No Data Found~</h3>
+</div>
+<!--Table's Footer Part-->
+<div class="d-flex w-100 p-3 justify-content-end align-items-center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li [class]="props.page===1?'page-item disabled':'page-item'">
+            <a class="page-link"  href="javascript:void(0)" aria-label="Previous" (click)="setValue('page',props.page-1)">
+              <span aria-hidden="true">Prev</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+         
+          <li class="page-item"><a class="page-link" href="javascript:void(0)">{{props.page}}</a></li>
+         
+          <li [class]="(!data || data.length==0)?'page-item disabled':'page-item'">
+            <a class="page-link" href="#" aria-label="Next" (click)="setValue('page',props.page+1)">
+              <span aria-hidden="true">Next</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+</div>
