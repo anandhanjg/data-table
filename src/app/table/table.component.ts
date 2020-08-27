@@ -31,6 +31,9 @@ export class TableComponent implements OnInit,OnChanges {
   @Output()
     setParams=new EventEmitter<any>();
 
+  @Output()
+    modifyItem=new EventEmitter<any>();
+
   startingIndex:number;
   constructor(){
     this.setText=this.setText.bind(this);
@@ -55,7 +58,9 @@ export class TableComponent implements OnInit,OnChanges {
     this.deleteItem.emit([v,i]);
   }
 
-  modifyRow(v:object,i:number){}
+  modifyRow(v:object,i:number){
+    this.modifyItem.emit([v,i]);
+  }
 
   setText(e){
     this.setValue(e.target.name,e.target.value); 

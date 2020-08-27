@@ -8,8 +8,14 @@ import {TableService} from './table.service';
 })
 export class AppComponent {
   title = 'data-table';
+  
+  //Sizes
   lengths:any[]=[2,3,4,5];
+  
+  //Table Data (Array of Objects);
   data:any[];  
+
+  //Table Header
   headers=[
     {
       text:"Product Name",
@@ -33,6 +39,7 @@ export class AppComponent {
     }
   ];
 
+  /*Data To Be Passed */
   props:any={
     page:1,
     size:this.lengths[0],
@@ -60,6 +67,10 @@ export class AppComponent {
       console.log(value);
   }
 
+  modifyData(value:any){
+      console.log(value);
+  }
+
   getParams(value){
       this.props[value[0]]=value[1];
       if(value[0]=='searchTxt' || value[0]=='size'){  
@@ -72,8 +83,6 @@ export class AppComponent {
           }
           this.props.page=1;   
       }
-      console.log(value[0]);
-      console.log(this.props.page);
       this.getData();
   }
   
