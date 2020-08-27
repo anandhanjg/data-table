@@ -52,7 +52,7 @@ export class AppComponent {
     this.props.size=parseInt(this.props.size);
     this.props.order=parseInt(this.props.order);
     this.props.page=parseInt(this.props.page);
-    this.tableService.getData("http://13.233.108.69:5500/prod/getProdsAll",this.props,{"authorization":"Auth Token"}).subscribe(r=>{
+    this.tableService.getData("url",this.props,{"authorization":"Auth Token"}).subscribe(r=>{
         console.log(r);
         this.data=r.payload.products;
     });
