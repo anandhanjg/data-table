@@ -52,7 +52,7 @@ export class AppComponent {
     this.props.size=parseInt(this.props.size);
     this.props.order=parseInt(this.props.order);
     this.props.page=parseInt(this.props.page);
-    this.tableService.getData("http://13.233.108.69:5500/prod/getProdsAll",this.props,{"authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBJZCI6IlNBRE1JTjAwMCIsImF1dGhUeXBlIjoiQUNVNDU2IiwiaWF0IjoxNTk3OTA4ODgzLCJleHAiOjE2ODQzMDg4ODN9.mIh2UdlGfuaAkXI9NDwlcz4NN4K3X1P57Fcq9V_B3e4"}).subscribe(r=>{
+    this.tableService.getData("http://13.233.108.69:5500/prod/getProdsAll",this.props,{"authorization":"Auth Token"}).subscribe(r=>{
         console.log(r);
         this.data=r.payload.products;
     });
