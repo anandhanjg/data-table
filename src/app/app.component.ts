@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { TableService } from './table.service';
+import { Component,OnInit } from '@angular/core';
+import {TableService} from './table.service';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +39,7 @@ export class AppComponent {
     }
   ];
 
+
   /*Data To Be Passed */
   props:any={
     page:1,
@@ -52,9 +53,10 @@ export class AppComponent {
     this.props.size=parseInt(this.props.size);
     this.props.order=parseInt(this.props.order);
     this.props.page=parseInt(this.props.page);
-    this.tableService.getData("url",this.props,{"authorization":"Auth Token"}).subscribe(r=>{
-        console.log(r);
-        this.data=r.payload.products;
+    this.tableService.getData("http://13.233.108.69:5500/prod/getProductsAll",this.props,{"authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBJZCI6IlNBRE1JTjAwMCIsImF1dGhUeXBlIjoiQUNVNDU2IiwiaWF0IjoxNTk3OTA4ODgzLCJleHAiOjE2ODQzMDg4ODN9.mIh2UdlGfuaAkXI9NDwlcz4NN4K3X1P57Fcq9V_B3e4"}).subscribe(r=>{
+      if(r.code=='ECM005')  
+        console.log(r);  
+      this.data=r.payload.products;
     });
   }
 
@@ -64,10 +66,12 @@ export class AppComponent {
   }
 
   deleteRow(value:any){
+      console.log("In Deletion");
       console.log(value);
   }
 
   modifyData(value:any){
+      console.log("In Modify");
       console.log(value);
   }
 
@@ -85,5 +89,7 @@ export class AppComponent {
       }
       this.getData();
   }
+
+  
   
 }

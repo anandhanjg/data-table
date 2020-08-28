@@ -36,8 +36,7 @@ export class TableComponent implements OnInit,OnChanges {
 
   startingIndex:number;
   constructor(){
-    this.setText=this.setText.bind(this);
-    
+    this.setText=this.setText.bind(this);    
   }
 
   ngOnChanges():void{
@@ -63,7 +62,7 @@ export class TableComponent implements OnInit,OnChanges {
   }
 
   setText(e){
-    this.setValue(e.target.name,e.target.value); 
+      this.setValue(e.target.name,e.target.value); 
   }
 
   setValue(name,value){
@@ -71,6 +70,7 @@ export class TableComponent implements OnInit,OnChanges {
   }
 
   search(e){
-    this.setParams.emit(['searchTxt',this.props.searchTxt]);
+    if(this.props.searchTxt)
+      this.setParams.emit(['searchTxt',this.props.searchTxt]);
   }
 }

@@ -10,16 +10,8 @@ export class TableService {
 
   constructor(private http:HttpClient) { }
 
-  getHeader(headers):HttpHeaders{
-    let httpHeader=new HttpHeaders();
-    Object.keys(headers).forEach(key=>{
-      httpHeader.set(key,headers[key]);
-    });
-    return httpHeader;
-  }
-
   getData(url:string,options,headers):Observable<any>{
-      return this.http.post<any>(url,options,{headers:this.getHeader(headers)}).pipe(map(r=>r));
+      return this.http.post<any>(url,options,{headers:new HttpHeaders(headers)}).pipe(map(r=>r));
   }
 
 }
